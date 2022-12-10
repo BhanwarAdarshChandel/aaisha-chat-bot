@@ -6,29 +6,44 @@ package com.aaisha.chatbot.entity;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 
 /**
  * @author Bhanwar
  *
  */
+@Table
+@Entity(name = "CHAT_BOT_USER")
 public class ChatBotUser implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2800188785223571773L;
 
+	@Id
+	@Column(name = "USERNAME")
 	private String username;
 
+	@Column(name = "PASSWORD")
 	private String password;
 
-	private Set<String> authorities;
+	@Column(name = "AUTHORITY")
+	private String authorities;
 
+	@Column(name = "ACCOUNT_NON_EXPIRED")
 	private boolean accountNonExpired;
 
+	@Column(name = "ACCOUNT_NON_LOCKED")
 	private boolean accountNonLocked;
 
+	@Column(name = "CREDENTIALS_NON_EXPIRED")
 	private boolean credentialsNonExpired;
 
+	@Column(name = "ENABLED")
 	private boolean enabled;
 
 	/**
@@ -48,7 +63,7 @@ public class ChatBotUser implements Serializable {
 	 * @param enabled
 	 */
 	public ChatBotUser(String username, String password,
-			Set<String> authorities, boolean accountNonExpired,
+			String authorities, boolean accountNonExpired,
 			boolean accountNonLocked, boolean credentialsNonExpired,
 			boolean enabled) {
 		super();
@@ -94,7 +109,7 @@ public class ChatBotUser implements Serializable {
 	/**
 	 * @return the authorities
 	 */
-	public Set<String> getAuthorities() {
+	public String getAuthorities() {
 		return authorities;
 	}
 
@@ -102,7 +117,7 @@ public class ChatBotUser implements Serializable {
 	 * @param authorities
 	 *            the authorities to set
 	 */
-	public void setAuthorities(Set<String> authorities) {
+	public void setAuthorities(String authorities) {
 		this.authorities = authorities;
 	}
 

@@ -3,6 +3,7 @@
  */
 package com.aaisha.chatbot.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,38 +12,54 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.aaisha.chatbot.service.user.detail.UserDetailsServiceImpl;
 
 /**
  * @author Bhanwar
  *
  */
-@SuppressWarnings("deprecation")
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	@Bean
+	public UserDetailsService getUserDetailsService() {
+		return new UserDetailsServiceImpl();
+	}
+
+	@Bean
+	public BCryptPasswordEncoder getBCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
-		super.configure(auth);
+		auth.userDetailsService(getUserDetailsService())
+				.passwordEncoder(getBCryptPasswordEncoder());
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/v1/login","/v1/register","/v1/register/process");
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().permitAll();
-		http.csrf().disable();
-		http.cors().disable();
-		//http.formLogin().loginProcessingUrl("").loginPage("");
+		http.authorizeRequests().anyRequest().hasAnyAuthority("USER", "ADMIN")
+				.and().formLogin().loginPage("/v1/login")
+				.loginProcessingUrl("/login").defaultSuccessUrl("/v1/home/")
+				.and().csrf().disable();
+		//http.headers().frameOptions().sameOrigin();
 	}
 
 }
