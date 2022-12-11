@@ -11,8 +11,7 @@
 </head>
 <body>
 	<div class="container">
-		<br> <br>
-		<div class="card">
+		<div class="card mt-5">
 			<div class="card-header">
 				<h1>Registration User Form</h1>
 			</div>
@@ -23,12 +22,22 @@
 				<form th:action="@{/v1/register/process}" method="post"
 					th:object="${chatBotUser}" action="#">
 					<div class="form-group">
-						<label for="exampleInputEmail1">Email address</label> <input
-							type="email" class="form-control" placeholder="Enter email"
+						<label>Email address</label> <input
+							type="email" class="form-control" placeholder="Enter Email"
 							th:field="*{username}">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">Password</label> <input
+						<label>First Name</label> <input
+							type="text" class="form-control" placeholder="Enter First name"
+							th:field="*{firstname}">
+					</div>
+					<div class="form-group">
+						<label>Last Name</label> <input
+							type="text" class="form-control" placeholder="Enter Last Name"
+							th:field="*{lastname}">
+					</div>
+					<div class="form-group">
+						<label>Password</label> <input
 							type="password" class="form-control" placeholder="Password"
 							th:field="*{password}">
 					</div>

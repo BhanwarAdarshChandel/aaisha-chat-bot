@@ -28,10 +28,10 @@
 </head>
 <body>
 	<div class="container">
-	<div>
-	<span>Hello user [[${user.username}]]</span>
-	<span><a href="/logout">Logout</a></span>
-	</div>
+		<div>
+			<span>Hello user [[${user.firstname}]], [[${user.lastname}]]</span> <span><a
+				href="/logout">Logout</a></span>
+		</div>
 		<div id="carouselExampleSlidesOnly" data-interval="2000"
 			class="carousel slide" data-ride="carousel">
 			<div class="carousel-inner">
@@ -46,8 +46,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="fixed-bottom">
-			<a class="btn btn-primary" th:href="@{/v1/home/chatbot}"></a>
+		<div class="rounded-circle border border-success" style="position: fixed; bottom: 25px; right: 25px;">
+			<a class=""
+				th:href="@{/v1/home/chatbot/{timestamp}(timestamp=${timestamp})}"><img th:src="@{/chatbot.png}" /></a>
 		</div>
 	</div>
 </body>

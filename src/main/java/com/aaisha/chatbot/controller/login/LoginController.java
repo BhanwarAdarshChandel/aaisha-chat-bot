@@ -16,13 +16,11 @@ import com.aaisha.chatbot.entity.ChatBotUser;
  *
  */
 @Controller
-@RequestMapping("/v1")
 public class LoginController {
-	
-	@GetMapping(path="/login")
+
+	@GetMapping(path = {"","/","/v1/login"})
 	public String getLoginForm(Model model) {
 		model.addAttribute("chatBotUser", new ChatBotUser());
-		return "login";
+		return "index";
 	}
-
 }

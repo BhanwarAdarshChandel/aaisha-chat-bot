@@ -46,4 +46,14 @@ public class RegistrationServiceImpl implements RegistrationService{
 		}
 	}
 
+	@Override
+	public ChatBotUser findById(String userEmail) {
+		Optional<ChatBotUser> user= chatBotUserRepository.findById(userEmail);
+		if(user.isPresent()) {
+			return user.get();
+		}
+		return null;
+	}
+
+	
 }

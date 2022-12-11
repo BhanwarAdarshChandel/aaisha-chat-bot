@@ -3,7 +3,6 @@
  */
 package com.aaisha.chatbot.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,17 +48,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/v1/login","/v1/register","/v1/register/process");
-	}
-
-	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().hasAnyAuthority("USER", "ADMIN")
-				.and().formLogin().loginPage("/v1/login")
+		http.authorizeRequests().antMatchers("/v1/home","/v1/home/","/v1/home/chatbot/*").hasAnyAuthority("USER", "ADMIN")
+				.and().authorizeRequests().antMatchers("/","/v1/login","/v1/register","/v1/register/process").permitAll().and()
+				.formLogin().loginPage("/v1/login")
 				.loginProcessingUrl("/login").defaultSuccessUrl("/v1/home/")
 				.and().csrf().disable();
-		//http.headers().frameOptions().sameOrigin();
 	}
 
 }

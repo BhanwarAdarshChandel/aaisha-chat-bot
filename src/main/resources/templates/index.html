@@ -12,24 +12,28 @@
 </head>
 <body>
 	<div class="container">
-		<br> <br>
-		<div class="card">
+		<div class="card mt-5">
 			<div class="card-header">
 				<h1>User Login Form</h1>
 			</div>
-			<div class="card-body">
-				<div class="text-success" th:if="${result}">
+			<div class="card-body mt-2 mb-1">
+				<div class="text-success mt-2 mb-2" th:if="${result}">
 					<span>User [[${user}]] registered successfully</span>
 				</div>
+				<div th:if="${err}" class="alert alert-danger mt-2 mb-2"
+					role="alert">Something wrong please login again</div>
+				<div th:if="${param.error}" class="alert alert-danger mt-2 mb-2"
+					role="alert">Invalid username and password.</div>
+				<div th:if="${param.logout}" class="alert alert-success mt-2 mb-2"
+					role="alert">You have been logged out.</div>
 				<form action="/login" method="post">
 					<div class="form-group">
-						<label for="exampleInputEmail1">Email address</label> <input
-							type="email" class="form-control" placeholder="Enter email"
-							name="username">
+						<label>Email address</label> <input type="email"
+							class="form-control" placeholder="Enter email" name="username">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">Password</label> <input
-							type="password" class="form-control" placeholder="Password" name="password">
+						<label>Password</label> <input type="password"
+							class="form-control" placeholder="Password" name="password">
 					</div>
 					<button type="submit" class="btn btn-primary">Login</button>
 					<br> <br>

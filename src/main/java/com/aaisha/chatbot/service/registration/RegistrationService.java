@@ -12,5 +12,7 @@ import com.aaisha.chatbot.entity.ChatBotUser;
 public interface RegistrationService {
 
 	public boolean registerUser(ChatBotUser chatBotUser);
-	
+
+	public ChatBotUser findById(String userEmail);
+
 }
