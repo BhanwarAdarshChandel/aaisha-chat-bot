@@ -33,6 +33,7 @@ build/
 .vscode/
 
 ### maven ###
+**/.m2/**
 target/
 pom.xml.tag
 pom.xml.releaseBackup
