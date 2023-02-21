@@ -8,6 +8,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.aaisha.chatbot.entity.ChatBotUser;
 import com.aaisha.chatbot.entity.ChatBotUserQuestion;
 import com.aaisha.chatbot.service.registration.RegistrationService;
+import com.aaisha.chatbot.service.timetable.TimeTableService;
 import com.aaisha.chatbot.service.user.asked.question.ChatBotUserAskedQuestionService;
 
 /**
@@ -34,14 +36,23 @@ public class HomeController {
 
 	@Autowired
 	private ChatBotUserAskedQuestionService chatBotUserAskedQuestionService;
+	
+	@Autowired
+	private TimeTableService timeTableService;
 
 	@GetMapping(path = "/")
 	public String getHome(Model model, Principal principal) {
+		String page="";
 		String email = principal.getName();
-		ChatBotUser user = registrationService.findById(email);
+		ChatBotUser chatbotUser = registrationService.findById(email);
 		model.addAttribute("timestamp", ZonedDateTime.now().getNano());
-		model.addAttribute("user", user);
-		return "/user/home";
+		model.addAttribute("user", chatbotUser);
+		if(chatbotUser.getAuthorities().contains("STUDENT")) {
+			page= "/user/home";
+		}else if(chatbotUser.getAuthorities().contains("ADMIN")){
+			page= "/admin/home";
+		}
+		return page;
 	}
 
 	@GetMapping("/chatbot/{timestamp}")
@@ -129,8 +140,9 @@ public class HomeController {
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
-		model.addAttribute("result", true);
+		model.addAttribute("result", false);
 		model.addAttribute("answer", "Time Table");
+		model.addAttribute("timetable", timeTableService.getAllTimeTable());
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		return "/user/chatbot";

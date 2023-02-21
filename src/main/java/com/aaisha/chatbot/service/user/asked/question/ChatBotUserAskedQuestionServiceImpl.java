@@ -3,6 +3,9 @@
  */
 package com.aaisha.chatbot.service.user.asked.question;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +34,14 @@ public class ChatBotUserAskedQuestionServiceImpl implements ChatBotUserAskedQues
 	
 	@Override
 	public String userQuestion(ChatBotUserQuestion chatBotUserQuestion) {
+		chatBotUserQuestion.setUseremail(chatBotUserQuestion.getUseremail().toLowerCase());
+		chatBotUserQuestion.setUserquestion(chatBotUserQuestion.getUserquestion().toLowerCase());
 		QuestionAndAnswer answer=chatBotQuestionAndAnswerRepository.findByQuestionIgnoreCase(chatBotUserQuestion.getUserquestion());
 		chatBotUserQuestionRepository.save(chatBotUserQuestion);
 		if(answer==null) {
 			UnknownQuestion question =new UnknownQuestion();
-			question.setQuestion(chatBotUserQuestion.getUserquestion());
-			question.setUserEmail(chatBotUserQuestion.getUseremail());
+			question.setQuestion(chatBotUserQuestion.getUserquestion().toLowerCase());
+			question.setUserEmail(chatBotUserQuestion.getUseremail().toLowerCase());
 			unknownQuestionRepository.save(question);
 			return "sorry for inconvinience, currently answer is not available we"
 					+ " will send you answer on your registred email once we get answer";

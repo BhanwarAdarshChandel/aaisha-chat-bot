@@ -13,7 +13,7 @@
 
 	<groupId>com.aaisha</groupId>
 	<artifactId>aaisha-chat-bot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<packaging>war</packaging>
 	<name>aaisha-chat-bot</name>
 	<description>aaisha chat bot</description>

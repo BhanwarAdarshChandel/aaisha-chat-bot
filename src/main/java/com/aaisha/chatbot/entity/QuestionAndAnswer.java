@@ -5,8 +5,11 @@ package com.aaisha.chatbot.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author Bhanwar
@@ -17,6 +20,7 @@ import javax.persistence.Table;
 public class QuestionAndAnswer {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID")
 	private Integer id;
 
@@ -24,6 +28,7 @@ public class QuestionAndAnswer {
 	private String question;
 
 	@Column(name = "ANSWER")
+	@NotEmpty(message = "answer should not empty")
 	private String answer;
 
 	/**
@@ -38,6 +43,16 @@ public class QuestionAndAnswer {
 		this.answer = answer;
 	}
 
+	/**
+	 * @param question
+	 * @param answer
+	 */
+	public QuestionAndAnswer(String question, String answer) {
+		super();
+		this.question = question;
+		this.answer = answer;
+	}
+	
 	/**
 	 * 
 	 */
