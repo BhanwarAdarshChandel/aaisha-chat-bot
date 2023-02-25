@@ -49,7 +49,7 @@ public class AdminController {
 		String email = principal.getName();
 		ChatBotUser user = adminServiceImpl.findById(email);
 		UnknownQuestion unknownQuestion=adminServiceImpl.findUnansweredQuestionById(qid);
-		adminServiceImpl.saveAnswer(new QuestionAndAnswer(unknownQuestion.getQuestion().toLowerCase(), questionAndAnswer.getAnswer()));
+		adminServiceImpl.saveAnswer(new QuestionAndAnswer(unknownQuestion.getQuestion().toLowerCase(), questionAndAnswer.getAnswer().trim()));
 		adminServiceImpl.deleteUnansweredQuestionById(qid);
 		model.addAttribute("user", user);
 		return "redirect:/v1/admin/unansweredquestion/"+timestamp;

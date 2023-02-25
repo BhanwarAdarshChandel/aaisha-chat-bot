@@ -14,5 +14,5 @@ import com.aaisha.chatbot.entity.TimeTable;
  *
  */
 public interface TimeTableRepository extends JpaRepository<TimeTable, Integer> {
-public List<TimeTable> findByStream(String stream);
+public List<TimeTable> findByStreamIgnoreCase(String stream);
 }

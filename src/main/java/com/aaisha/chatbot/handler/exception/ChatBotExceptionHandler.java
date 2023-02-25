@@ -44,6 +44,9 @@ public class ChatBotExceptionHandler {
 		if(httpServletRequest.getRequestURI().contains("/v1/admin/update/timetable/")) {
 			return "redirect:/v1/admin/update/timetable/{timestamp}/{id}?error";
 		}
+		if(httpServletRequest.getRequestURI().contains("/v1/home/chatbot/question/")) {
+			return "redirect:/v1/home/chatbot/{timestamp}?question";
+		}
 		return "index";
 	}
 

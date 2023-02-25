@@ -7,6 +7,8 @@ import java.security.Principal;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aaisha.chatbot.entity.ChatBotUser;
 import com.aaisha.chatbot.entity.ChatBotUserQuestion;
+import com.aaisha.chatbot.service.fee.FeeService;
 import com.aaisha.chatbot.service.registration.RegistrationService;
 import com.aaisha.chatbot.service.timetable.TimeTableService;
 import com.aaisha.chatbot.service.user.asked.question.ChatBotUserAskedQuestionService;
@@ -39,6 +42,9 @@ public class HomeController {
 	
 	@Autowired
 	private TimeTableService timeTableService;
+	
+	@Autowired
+	private FeeService feeServiceImpl;
 
 	@GetMapping(path = "/")
 	public String getHome(Model model, Principal principal) {
@@ -100,9 +106,9 @@ public class HomeController {
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
-		model.addAttribute("result", true);
-		model.addAttribute("answer", "Fee");
+		model.addAttribute("result", false);
 		model.addAttribute("user", user);
+		model.addAttribute("fee", feeServiceImpl.getAllFee());
 		model.addAttribute("question", new ChatBotUserQuestion());
 		return "/user/chatbot";
 	}
@@ -141,7 +147,6 @@ public class HomeController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("result", false);
-		model.addAttribute("answer", "Time Table");
 		model.addAttribute("timetable", timeTableService.getAllTimeTable());
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
@@ -193,7 +198,7 @@ public class HomeController {
 	@PostMapping("/chatbot/question/{timestamp}")
 	public String getChatBotQuestion(
 			@PathVariable("timestamp") Integer timestamp,
-			@ModelAttribute("question") ChatBotUserQuestion question,
+			@Valid @ModelAttribute("question") ChatBotUserQuestion question,
 			Model model, Principal principal) {
 		question.setUseremail(principal.getName());
 		question.setTimestamp(timestamp);

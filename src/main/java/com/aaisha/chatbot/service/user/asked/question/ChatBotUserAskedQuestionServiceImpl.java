@@ -34,19 +34,19 @@ public class ChatBotUserAskedQuestionServiceImpl implements ChatBotUserAskedQues
 	
 	@Override
 	public String userQuestion(ChatBotUserQuestion chatBotUserQuestion) {
-		chatBotUserQuestion.setUseremail(chatBotUserQuestion.getUseremail().toLowerCase());
-		chatBotUserQuestion.setUserquestion(chatBotUserQuestion.getUserquestion().toLowerCase());
-		QuestionAndAnswer answer=chatBotQuestionAndAnswerRepository.findByQuestionIgnoreCase(chatBotUserQuestion.getUserquestion());
+		chatBotUserQuestion.setUserquestion(chatBotUserQuestion.getUserquestion().trim().toLowerCase());
+		chatBotUserQuestion.setUseremail(chatBotUserQuestion.getUseremail().trim().toLowerCase());
+		List<QuestionAndAnswer> answer=chatBotQuestionAndAnswerRepository.findByQuestionIgnoreCase(chatBotUserQuestion.getUserquestion());
 		chatBotUserQuestionRepository.save(chatBotUserQuestion);
-		if(answer==null) {
+		if(answer.isEmpty()) {
 			UnknownQuestion question =new UnknownQuestion();
-			question.setQuestion(chatBotUserQuestion.getUserquestion().toLowerCase());
-			question.setUserEmail(chatBotUserQuestion.getUseremail().toLowerCase());
+			question.setQuestion(chatBotUserQuestion.getUserquestion());
+			question.setUserEmail(chatBotUserQuestion.getUseremail());
 			unknownQuestionRepository.save(question);
 			return "sorry for inconvinience, currently answer is not available we"
 					+ " will send you answer on your registred email once we get answer";
 		}else {
-			return answer.getAnswer();
+			return answer.get(0).getAnswer();
 		}
 	}
 

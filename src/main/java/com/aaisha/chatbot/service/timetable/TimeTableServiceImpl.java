@@ -23,12 +23,22 @@ public class TimeTableServiceImpl implements TimeTableService {
 
 	@Override
 	public List<TimeTable> getAllTimeTable() {
-		return timeTableRepository.findAll();
+		List<TimeTable> listTimeTable =timeTableRepository.findAll();
+		if(listTimeTable.isEmpty()) {
+			return null;
+		}else {
+			return listTimeTable;
+		}
 	}
 
 	@Override
 	public List<TimeTable> getTimeTableByStream(String stream) {
-		return timeTableRepository.findByStream(stream);
+		List<TimeTable> listTimeTable = timeTableRepository.findByStreamIgnoreCase(stream);
+		if(listTimeTable.isEmpty()) {
+			return null;
+		}else {
+			return listTimeTable;
+		}
 	}
 
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.aaisha.chatbot.controller.chatbot;
+package com.aaisha.chatbot.controller.fee;
 
 import java.security.Principal;
 
@@ -14,21 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aaisha.chatbot.entity.ChatBotUser;
 import com.aaisha.chatbot.entity.ChatBotUserQuestion;
+import com.aaisha.chatbot.service.fee.FeeService;
 import com.aaisha.chatbot.service.registration.RegistrationService;
-import com.aaisha.chatbot.service.timetable.TimeTableService;
 
 /**
  * @author Bhanwar
  *
  */
 @Controller
-@RequestMapping(path = "/v1/home/chatbot/timetable")
-public class TimeTableChatBotController {
+@RequestMapping(path="/v1/home/chatbot/fee")
+public class FeeController {
 	
 	@Autowired
 	private RegistrationService registrationService;
+	
 	@Autowired
-	private TimeTableService timeTableService;
+	private FeeService feeServiceImpl;
 	
 	@GetMapping("/bca/{timestamp}")
 	public String getBCAFee(@PathVariable("timestamp") Integer timestamp,
@@ -37,7 +38,7 @@ public class TimeTableChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
-		model.addAttribute("timetable", timeTableService.getTimeTableByStream("BCA"));
+		model.addAttribute("fee", feeServiceImpl.getFeeByStream("BCA"));
 		return "/user/chatbot"; 
 	}
 	
@@ -48,7 +49,7 @@ public class TimeTableChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
-		model.addAttribute("timetable", timeTableService.getTimeTableByStream("mca"));
+		model.addAttribute("fee", feeServiceImpl.getFeeByStream("MCA"));
 		return "/user/chatbot"; 
 	}
 	
@@ -59,8 +60,7 @@ public class TimeTableChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
-		model.addAttribute("timetable", timeTableService.getTimeTableByStream("msc"));
+		model.addAttribute("fee", feeServiceImpl.getFeeByStream("MSc"));
 		return "/user/chatbot"; 
 	}
-
 }

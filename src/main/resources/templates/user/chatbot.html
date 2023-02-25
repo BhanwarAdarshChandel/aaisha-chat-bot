@@ -20,6 +20,7 @@
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 </head>
+
 <body>
 	<div class="container">
 		<nav class="navbar justify-content-center navbar-expand-sm bg-dark navbar-dark mt-1 mb-2">
@@ -38,6 +39,11 @@
 				</li>
 			</ul>
 		</nav>
+		<div class="card alert alert-danger mt-2 mb-2" th:if="${param.question}" role="alert">
+			<div class="card-body">
+				Question should not be empty
+			</div>
+		</div>
 		<div class="mt-4 mb-3">
 			<span><b>Hello user [[${user.firstname}]], [[${user.lastname}]]</b></span>
 		</div>
@@ -50,12 +56,22 @@
 							th:href="@{/v1/home/chatbot/course/{timestamp}(timestamp=${timestamp})}">About</a></td>
 					<td><a class="btn btn-primary"
 							th:href="@{/v1/home/chatbot/fee/{timestamp}(timestamp=${timestamp})}">Fee</a></td>
-					<td><select class="custom-select text-bg-success">
-							<option selected>Open this select stream</option>
-							<option value="1">MCA</option>
-							<option value="2">BCA</option>
-							<option value="3">BTech</option>
-						</select></td>
+					<td>
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Select your semester
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/fee/bca/{timestamp}(timestamp=${timestamp})}">B.C.A.</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/fee/mca/{timestamp}(timestamp=${timestamp})}">M.C.A.</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/fee/msc/{timestamp}(timestamp=${timestamp})}">M.Sc.</a>
+							</div>
+						</div>
+					</td>
 				</tr>
 				<tr class="mt-1">
 					<td><a class="btn btn-primary"
@@ -72,9 +88,12 @@
 								Select your semester
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" th:href="@{/v1/home/chatbot/timetable/bca/{timestamp}(timestamp=${timestamp})}">B.C.A.</a>
-								<a class="dropdown-item" th:href="@{/v1/home/chatbot/timetable/mca/{timestamp}(timestamp=${timestamp})}">M.C.A.</a>
-								<a class="dropdown-item" th:href="@{/v1/home/chatbot/timetable/msc/{timestamp}(timestamp=${timestamp})}">M.Sc.</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/timetable/bca/{timestamp}(timestamp=${timestamp})}">B.C.A.</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/timetable/mca/{timestamp}(timestamp=${timestamp})}">M.C.A.</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/timetable/msc/{timestamp}(timestamp=${timestamp})}">M.Sc.</a>
 							</div>
 						</div>
 					</td>
@@ -89,8 +108,9 @@
 							Us</a></td>
 				</tr>
 			</table>
+			<!-- time table table-->
 			<div class="table-responsive mt-2 mb-2" th:if="${timetable!=null}">
-				<table class="table table-hover">
+				<table class="table table-hover" th:if="${timetable!=null}">
 					<thead>
 						<tr>
 							<th scope="col">S.R.</th>
@@ -113,14 +133,39 @@
 					</tbody>
 				</table>
 			</div>
-			<div class="mt-2 mb-2" th:if="${result}">[[${answer}]]</div>
+			<!-- fee table-->
+			<div class="table-responsive mt-2 mb-2" th:if="${fee!=null}">
+				<table class="table table-hover" th:if="${fee!=null}">
+					<thead>
+						<tr>
+							<th scope="col">S.R.</th>
+							<th scope="col">STREAM</th>
+							<th scope="col">SEMESTER</th>
+							<th scope="col">FEE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="f : ${fee}">
+							<th scope="row">[[${fStat.index+1}]]</th>
+							<td>[[${f.stream}]]</td>
+							<td>[[${f.semester}]]</td>
+							<td>[[${f.fee}]]</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="card alert alert-success mt-3 mb-3" th:if="${result}" role="alert">
+				<div class="card-body">[[${answer}]]
+				</div>
+			</div>
 			<form th:action="@{/v1/home/chatbot/question/{timestamp}(timestamp=${timestamp})}" method="post"
 				th:object="${question}" action="#">
-				<div class="form-group">
+				<div class="form-group mt-3">
 					<label>Ask your question here</label> <input type="text" class="form-control"
 						placeholder="Enter your question" th:field="*{userquestion}">
 				</div>
-				<button type="submit" class="btn btn-primary">Register</button>
+				<button type="submit" class="btn btn-primary">ASK</button>
 			</form>
 		</div>
 	</div>
