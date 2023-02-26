@@ -34,33 +34,51 @@ public class FeeController {
 	@GetMapping("/bca/{timestamp}")
 	public String getBCAFee(@PathVariable("timestamp") Integer timestamp,
 	Model model, Principal principal) {
+		String page="";
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("fee", feeServiceImpl.getFeeByStream("BCA"));
-		return "/user/chatbot"; 
+		if(user.getAuthorities().contains("STUDENT")) {
+			page= "/user/chatbot";
+		}else if(user.getAuthorities().contains("ADMIN")){
+			page= "/admin/adminchatbot";
+		}
+		return page; 
 	}
 	
 	@GetMapping("/mca/{timestamp}")
 	public String getMCAFee(@PathVariable("timestamp") Integer timestamp,
 	Model model, Principal principal) {
+		String page="";
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("fee", feeServiceImpl.getFeeByStream("MCA"));
-		return "/user/chatbot"; 
+		if(user.getAuthorities().contains("STUDENT")) {
+			page= "/user/chatbot";
+		}else if(user.getAuthorities().contains("ADMIN")){
+			page= "/admin/adminchatbot";
+		}
+		return page; 
 	}
 	
 	@GetMapping("/msc/{timestamp}")
 	public String getMScFee(@PathVariable("timestamp") Integer timestamp,
 	Model model, Principal principal) {
+		String page="";
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("fee", feeServiceImpl.getFeeByStream("MSc"));
-		return "/user/chatbot"; 
+		if(user.getAuthorities().contains("STUDENT")) {
+			page= "/user/chatbot";
+		}else if(user.getAuthorities().contains("ADMIN")){
+			page= "/admin/adminchatbot";
+		}
+		return page; 
 	}
 }

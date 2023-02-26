@@ -33,34 +33,52 @@ public class TimeTableChatBotController {
 	@GetMapping("/bca/{timestamp}")
 	public String getBCATimeTable(@PathVariable("timestamp") Integer timestamp,
 	Model model, Principal principal) {
+		String page="";
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("timetable", timeTableService.getTimeTableByStream("BCA"));
-		return "/user/chatbot"; 
+		if(user.getAuthorities().contains("STUDENT")) {
+			page= "/user/chatbot";
+		}else if(user.getAuthorities().contains("ADMIN")){
+			page= "/admin/adminchatbot";
+		}
+		return page; 
 	}
 	
 	@GetMapping("/mca/{timestamp}")
 	public String getMCATimeTable(@PathVariable("timestamp") Integer timestamp,
 	Model model, Principal principal) {
+		String page="";
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("timetable", timeTableService.getTimeTableByStream("MCA"));
-		return "/user/chatbot"; 
+		if(user.getAuthorities().contains("STUDENT")) {
+			page= "/user/chatbot";
+		}else if(user.getAuthorities().contains("ADMIN")){
+			page= "/admin/adminchatbot";
+		}
+		return page;
 	}
 	
 	@GetMapping("/msc/{timestamp}")
 	public String getMSCTimeTable(@PathVariable("timestamp") Integer timestamp,
 	Model model, Principal principal) {
+		String page="";
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("timetable", timeTableService.getTimeTableByStream("MSc"));
-		return "/user/chatbot"; 
+		if(user.getAuthorities().contains("STUDENT")) {
+			page= "/user/chatbot";
+		}else if(user.getAuthorities().contains("ADMIN")){
+			page= "/admin/adminchatbot";
+		}
+		return page; 
 	}
 
 }

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
 /**
@@ -39,8 +40,8 @@ public class Fee implements Serializable {
 	private String semester;
 	
 	@Column(name = "FEE")
-	@NotEmpty(message = "fee is mandatory")
-	private double fee;
+	@Min(value = 1000)
+	private double semFee;
 
 	/**
 	 * @return the id
@@ -87,15 +88,15 @@ public class Fee implements Serializable {
 	/**
 	 * @return the fee
 	 */
-	public double getFee() {
-		return fee;
+	public double getSemFee() {
+		return semFee;
 	}
 
 	/**
 	 * @param fee the fee to set
 	 */
-	public void setFee(double fee) {
-		this.fee = fee;
+	public void setSemFee(double semFee) {
+		this.semFee = semFee;
 	}
 
 	/**

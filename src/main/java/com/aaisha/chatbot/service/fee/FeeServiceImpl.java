@@ -41,4 +41,19 @@ public class FeeServiceImpl implements FeeService {
 		}
 	}
 
+	@Override
+	public void aadFee(Fee fee) {
+		feeRepository.save(fee);
+	}
+
+	@Override
+	public void deleteFeeRecordById(Integer id) {
+		feeRepository.deleteById(id);
+	}
+
+	@Override
+	public Fee getFeeById(Integer id) {
+		return feeRepository.findById(id).get();
+	}
+
 }

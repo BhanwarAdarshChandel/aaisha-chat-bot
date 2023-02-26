@@ -50,40 +50,50 @@
 		<div class="mt-4 mb-3">
 			<span><b>Hello admin [[${user.firstname}]], [[${user.lastname}]]</b></span>
 		</div>
-		<div class="card mt-5">
-			<div class="card-header">
-				<h1>Time Table Update Form</h1>
+		<div class="card alert alert-danger mt-2 mb-2" th:if="${param.delete}" role="alert">
+			<div class="card-body">
+				Fee record deleted suceesfully
 			</div>
-			<div class="card-body mt-2 mb-1">
-				<div th:if="${param.error}" class="alert alert-danger mt-2 mb-2" role="alert">Please enter all time
-					table
-					fields.</div>
-				<form th:action="@{/v1/admin/update/timetable/{timestamp}/{id}(timestamp=${timestamp},id=${id})}" method="post"
-					th:object="${timeTable}" action="#">
-					<div class="form-group">
-						<label>Subject Name</label> <input type="text" class="form-control"
-							placeholder="Enter Subject Name" th:field="*{subject}">
-					</div>
-					<div class="form-group">
-						<label>Strean Name</label> <input type="text" class="form-control"
-							placeholder="Enter Stream Name" th:field="*{stream}">
-					</div>
-					<div class="form-group">
-						<label>Enter Semester</label> <input type="text" class="form-control"
-							placeholder="Enter Semester" th:field="*{semester}">
-					</div>
-					<div class="form-group">
-						<label>Enter Exam Date</label> <input type="text" class="form-control"
-							placeholder="Enter Exame Date" th:field="*{date}">
-					</div>
-					<div class="form-group">
-						<label>Enter Exam Time</label> <input type="text" class="form-control"
-							placeholder="Enter Exam Time" th:field="*{time}">
-					</div>
-					<br />
-					<button type="submit" class="btn btn-primary">UPDATE</button>
-				</form>
+		</div>
+		<div class="card alert alert-success mt-2 mb-2" th:if="${param.update}" role="alert">
+			<div class="card-body">
+				Fee record updated suceesfully
 			</div>
+		</div>
+		<div class="card" th:if="${fee==null}">
+			<div class="card-body">
+				No fee record found. if you want add some fee record please click here &nbsp;<span><a
+						class="btn btn-success" th:href="@{/v1/admin/fee/{timestamp}(timestamp=${timestamp})}">Add
+						Fee Record</a></span>
+			</div>
+		</div>
+		<div class="table-responsive mt-2 mb-2" th:if="${fee!=null}">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col">S.R.</th>
+						<th scope="col">STREAM</th>
+						<th scope="col">SEMESTER</th>
+						<th scope="col">FEE</th>
+						<th scope="col">UPDATE</th>
+						<th scope="col">DELETE</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="fee : ${fee}">
+						<th scope="row">[[${feeStat.index+1}]]</th>
+						<td>[[${fee.stream}]]</td>
+						<td>[[${fee.semester}]]</td>
+						<td>[[${fee.semFee}]]</td>
+						<td><a class="btn btn-success"
+								th:href="@{/v1/admin/fee/update/{timestamp}/{id}(timestamp=${timestamp},id=${fee.id})}">UPDATE</a>
+						</td>
+						<td><a class="btn btn-danger"
+								th:href="@{/v1/admin/fee/delete/{timestamp}/{id}(timestamp=${timestamp},id=${fee.id})}">DELETE</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 		<div class="rounded-circle border border-success" style="position: fixed; bottom: 25px; right: 25px;">
 			<a class="" th:href="@{/v1/home/chatbot/{timestamp}(timestamp=${timestamp})}"><img
@@ -91,4 +101,5 @@
 		</div>
 	</div>
 </body>
+
 </html>

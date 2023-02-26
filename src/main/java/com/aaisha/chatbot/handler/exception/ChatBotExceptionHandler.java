@@ -47,6 +47,12 @@ public class ChatBotExceptionHandler {
 		if(httpServletRequest.getRequestURI().contains("/v1/home/chatbot/question/")) {
 			return "redirect:/v1/home/chatbot/{timestamp}?question";
 		}
+		if(httpServletRequest.getRequestURI().contains("/v1/admin/fee/add/")) {
+			return "redirect:/v1/admin/fee/{timestamp}?error";
+		}
+		if(httpServletRequest.getRequestURI().contains("/v1/admin/fee/update/")) {
+			return "redirect:/v1/admin/fee/update/{timestamp}/{id}?error";
+		}
 		return "index";
 	}
 
