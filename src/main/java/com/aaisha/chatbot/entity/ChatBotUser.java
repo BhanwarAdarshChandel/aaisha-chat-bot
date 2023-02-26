@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 
 /**
@@ -26,13 +27,20 @@ public class ChatBotUser implements Serializable {
 
 	@Id
 	@Column(name = "USERNAME")
+	@NotEmpty(message = "user name is mandatory")
 	private String username;
 	
 	@Column(name = "USER_FIRST_NAME")
+	@NotEmpty(message = "user first name is mandatory")
 	private String firstname;
 	
 	@Column(name = "USER_LAST_NAME")
+	@NotEmpty(message = "user last name is mandatory")
 	private String lastname;
+	
+	@Column(name = "PASSWORD")
+	@NotEmpty(message = "password is mandatory")
+	private String password;
 
 	/**
 	 * @return the firstname
@@ -61,9 +69,6 @@ public class ChatBotUser implements Serializable {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-
-	@Column(name = "PASSWORD")
-	private String password;
 
 	@Column(name = "AUTHORITY")
 	private String authorities;

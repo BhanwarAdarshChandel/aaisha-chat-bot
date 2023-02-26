@@ -36,7 +36,7 @@ public class RegistrationServiceImpl implements RegistrationService{
 		}else {
 			chatBotUser.setAccountNonExpired(true);
 			chatBotUser.setAccountNonLocked(true);
-			chatBotUser.setAuthorities("USER");
+			chatBotUser.setAuthorities("STUDENT");
 			chatBotUser.setCredentialsNonExpired(true);
 			chatBotUser.setEnabled(true);
 			chatBotUser.setPassword(bCryptPasswordEncoder.encode(chatBotUser.getPassword()));

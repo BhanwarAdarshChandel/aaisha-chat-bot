@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * @author Bhanwar
@@ -36,6 +37,7 @@ public class ChatBotUserQuestion {
 	private String useremail;
 	
 	@Column(name = "USER_QUESTION")
+	@NotEmpty(message = "question is mandatory")
 	private String userquestion;
 	/**
 	 * @return the timestamp

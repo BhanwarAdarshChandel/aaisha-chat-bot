@@ -18,7 +18,7 @@ import com.aaisha.chatbot.entity.ChatBotUser;
 @Controller
 public class LoginController {
 
-	@GetMapping(path = {"","/","/v1/login"})
+	@GetMapping(path = {"","/","/v1","/v1/","/v1/login"})
 	public String getLoginForm(Model model) {
 		model.addAttribute("chatBotUser", new ChatBotUser());
 		return "index";

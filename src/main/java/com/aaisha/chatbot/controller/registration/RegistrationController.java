@@ -3,6 +3,8 @@
  */
 package com.aaisha.chatbot.controller.registration;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,7 @@ public class RegistrationController {
 	}
 	
 	@PostMapping("/register/process")
-	public String register(@ModelAttribute("chatBotUser") ChatBotUser chatBotUser,RedirectAttributes attr,Model model) {
+	public String register(@Valid @ModelAttribute("chatBotUser") ChatBotUser chatBotUser,RedirectAttributes attr,Model model) {
 		boolean result=registrationService.registerUser(chatBotUser);
 		if(result) {
 			attr.addFlashAttribute("chatBotUser", new ChatBotUser());
