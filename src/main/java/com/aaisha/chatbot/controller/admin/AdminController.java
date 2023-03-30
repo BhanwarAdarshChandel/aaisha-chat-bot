@@ -4,6 +4,8 @@ import java.security.Principal;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.aaisha.chatbot.entity.ChatBotUser;
 import com.aaisha.chatbot.entity.QuestionAndAnswer;
-import com.aaisha.chatbot.entity.TimeTable;
 import com.aaisha.chatbot.entity.UnknownQuestion;
 import com.aaisha.chatbot.service.admin.AdminService;
 
 @Controller
 @RequestMapping(path = "/v1/admin")
 public class AdminController {
-	
+	private static final Logger LOG =LoggerFactory.getLogger(AdminController.class);
 	@Autowired
 	private AdminService adminServiceImpl;
 
@@ -32,6 +33,7 @@ public class AdminController {
 			Principal principal) {
 		String email = principal.getName();
 		ChatBotUser user = adminServiceImpl.findById(email);
+		LOG.info("ADMIN "+email+" fetching all unanswered questions");
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("unansweredQuestion",
 				adminServiceImpl.getUnansweredQuestion());
@@ -48,6 +50,7 @@ public class AdminController {
 			Principal principal) {
 		String email = principal.getName();
 		ChatBotUser user = adminServiceImpl.findById(email);
+		LOG.info("ADMIN "+email+" submiting question=\""+questionAndAnswer.getQuestion()+"\" answer");
 		UnknownQuestion unknownQuestion=adminServiceImpl.findUnansweredQuestionById(qid);
 		adminServiceImpl.saveAnswer(new QuestionAndAnswer(unknownQuestion.getQuestion().toLowerCase(), questionAndAnswer.getAnswer().trim()));
 		adminServiceImpl.deleteUnansweredQuestionById(qid);

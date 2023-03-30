@@ -7,6 +7,8 @@ import java.security.Principal;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +29,7 @@ import com.aaisha.chatbot.service.admin.AdminService;
 @Controller
 @RequestMapping(path = "/v1/admin")
 public class AdminTimeTableController {
-
+	private static final Logger LOG =LoggerFactory.getLogger(AdminTimeTableController.class);
 	@Autowired
 	private AdminService adminServiceImpl;
 
@@ -35,6 +37,7 @@ public class AdminTimeTableController {
 	public String getTimeTablePage(@PathVariable("timestamp") Integer timestamp,
 			Model model, Principal principal) {
 		String email = principal.getName();
+		LOG.info("ADMIN "+email+" time table page");
 		ChatBotUser user = adminServiceImpl.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("user", user);
@@ -48,6 +51,7 @@ public class AdminTimeTableController {
 			Principal principal,
 			@Valid @ModelAttribute("timeTable") TimeTable timeTable) {
 		String email = principal.getName();
+		LOG.info("ADMIN "+email+" adding time table record");
 		ChatBotUser user = adminServiceImpl.findById(email);
 		adminServiceImpl.saveTimeTable(timeTable);
 		return "redirect:/v1/admin/timetable/" + timestamp + "?success";
@@ -57,6 +61,7 @@ public class AdminTimeTableController {
 	public String getAllTimeTable(@PathVariable("timestamp") Integer timestamp,
 			Model model, Principal principal) {
 		String email = principal.getName();
+		LOG.info("ADMIN "+email+" fetching all time table records");
 		ChatBotUser user = adminServiceImpl.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("user", user);
@@ -69,6 +74,7 @@ public class AdminTimeTableController {
 			@PathVariable("timestamp") Integer timestamp,
 			@PathVariable("id") Integer id, Model model, Principal principal) {
 		String email = principal.getName();
+		LOG.info("ADMIN "+email+" deleting time table record by id");
 		ChatBotUser user = adminServiceImpl.findById(email);
 		adminServiceImpl.deleteTimeTableById(id);
 		model.addAttribute("timestamp", timestamp);
@@ -81,6 +87,7 @@ public class AdminTimeTableController {
 			@PathVariable("timestamp") Integer timestamp,
 			@PathVariable("id") Integer id, Model model, Principal principal) {
 		String email = principal.getName();
+		LOG.info("ADMIN "+email+" fetching time table record by id for update");
 		ChatBotUser user = adminServiceImpl.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("user", user);
@@ -95,6 +102,7 @@ public class AdminTimeTableController {
 			 Model model, Principal principal,
 			@Valid @ModelAttribute("timeTable") TimeTable timeTable) {
 		String email = principal.getName();
+		LOG.info("ADMIN "+email+" updating time table record by id");
 		ChatBotUser user = adminServiceImpl.findById(email);
 		adminServiceImpl.saveTimeTable(timeTable);
 		model.addAttribute("user", user);
