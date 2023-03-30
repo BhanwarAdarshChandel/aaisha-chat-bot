@@ -7,6 +7,8 @@ import java.security.Principal;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,7 @@ import com.aaisha.chatbot.service.user.asked.question.ChatBotUserAskedQuestionSe
 @Controller
 @RequestMapping(path = "/v1/home")
 public class ChatBotController {
+	private static final Logger LOG =LoggerFactory.getLogger(ChatBotController.class);
 	@Autowired
 	private ChatBotUserAskedQuestionService chatBotUserAskedQuestionService;
 	
@@ -54,8 +57,10 @@ public class ChatBotController {
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("user", user);
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot page");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot page");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -73,8 +78,10 @@ public class ChatBotController {
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot course details");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot course details");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -92,8 +99,10 @@ public class ChatBotController {
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot about details");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot about details");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -111,8 +120,10 @@ public class ChatBotController {
 		model.addAttribute("fee", feeServiceImpl.getAllFee());
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot fee details");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot fee details");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -130,8 +141,10 @@ public class ChatBotController {
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot batch details");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot batch details");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -149,8 +162,10 @@ public class ChatBotController {
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot exam details");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot exam details");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -169,8 +184,10 @@ public class ChatBotController {
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot time table details");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot time table details");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -189,8 +206,10 @@ public class ChatBotController {
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot faculty details");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot faculty details");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -209,8 +228,10 @@ public class ChatBotController {
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot address details");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot address details");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -229,8 +250,10 @@ public class ChatBotController {
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot Caontact US details");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot Contact US details");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -253,8 +276,10 @@ public class ChatBotController {
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("user", user);
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" asking question");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" asking question");
 			page= "/admin/adminchatbot";
 		}
 		return page;

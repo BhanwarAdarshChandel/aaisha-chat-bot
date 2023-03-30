@@ -5,6 +5,8 @@ package com.aaisha.chatbot.controller.timetable;
 
 import java.security.Principal;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,7 @@ import com.aaisha.chatbot.service.timetable.TimeTableService;
 @Controller
 @RequestMapping(path = "/v1/home/chatbot/timetable")
 public class TimeTableChatBotController {
-	
+	private static final Logger LOG =LoggerFactory.getLogger(TimeTableChatBotController.class);
 	@Autowired
 	private RegistrationService registrationService;
 	@Autowired
@@ -40,8 +42,10 @@ public class TimeTableChatBotController {
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("timetable", timeTableService.getTimeTableByStream("BCA"));
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching BCA time table");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching BCA time table");
 			page= "/admin/adminchatbot";
 		}
 		return page; 
@@ -57,8 +61,10 @@ public class TimeTableChatBotController {
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("timetable", timeTableService.getTimeTableByStream("MCA"));
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching MCA time table");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching MCA time table");
 			page= "/admin/adminchatbot";
 		}
 		return page;
@@ -74,8 +80,10 @@ public class TimeTableChatBotController {
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("timetable", timeTableService.getTimeTableByStream("MSc"));
 		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching M.Sc. time table");
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching M.Sc. time table");
 			page= "/admin/adminchatbot";
 		}
 		return page; 
