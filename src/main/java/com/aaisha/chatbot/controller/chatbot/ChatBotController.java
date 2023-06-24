@@ -52,8 +52,8 @@ public class ChatBotController {
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
-		model.addAttribute("result", false);
-		model.addAttribute("answer", "");
+		model.addAttribute("result", true);
+		model.addAttribute("answer", "Hi this is Black Pink. How can I help you? Please choose relevant above option or you can write your question in below input box");
 		model.addAttribute("question", new ChatBotUserQuestion());
 		model.addAttribute("user", user);
 		if(user.getAuthorities().contains("STUDENT")) {
@@ -74,7 +74,13 @@ public class ChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("result", true);
-		model.addAttribute("answer", "<h1>Hello</>");
+		model.addAttribute("answer", "Bunts Sangha’s S.M.Shetty College of Science, Commerce and Management Studies were established in 2008 by Bunts Sangha, Mumbai. The college is affiliated to the University of Mumbai.\r\n"
+				+ "\r\n"
+				+ "Bunts Sangha, Mumbai was established in 1927 as a Charitable Trust and devoted itself to the cause of education, health care and social reforms of downtrodden and underprivileged class of people. The Sangha has been in the service of people for almost nine decades. Initially, the Sangha established two night schools mainly to cater the needs of working students during the day time. During the last decade, more emphasis was given to the education for the masses.\r\n"
+				+ "\r\n"
+				+ "Bunt’s Sangha’s S.M. Shetty College of Science, Commerce and Management Studies is committed to the promotion and propagation of quality education with excellence. The main focus is to impart domain specific knowledge, flexible skill mix, positive attitudes, ethically sound values and continuous learning habits through reflective thinking in a student. The objective is to unleash the human potential within students for excelling in the chosen educational field. Our earnest attempt is to see that all this should take place with a sense of purpose, pride, direction and commitment."
+				+ "\r\n"
+				+". For more information please visit our college website https://smshettycollege.edu.in/");
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
@@ -95,7 +101,13 @@ public class ChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("result", true);
-		model.addAttribute("answer", "About");
+		model.addAttribute("answer", "Our college provide number of Graduate Programs like BCOM, BAF, BBI, BMS, BMM/BAMMC, BSCIT, DATA SCIENCE."
+				+ "\r\n"
+				+ "Post Graduate Programs like MCOM in Advanced Accountancy, MSCIT, MCOM in Business Management"
+				+ "\r\n"
+				+ "Certificate Programmes like TALLY & ERP, FINANCIAL MARKETS, DIGITAL MARKETING, PHOTOSHOP, GRAPHIC DESIGNING, MICROSOFT CERTIFICATIONS, DIGITAL DESIGN, RUBY ON RAILS, RESEARCH METHODOLOGY"
+				+ "\r\n"
+				+ ". For more information please visit our college website https://smshettycollege.edu.in/");
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
@@ -137,7 +149,7 @@ public class ChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("result", true);
-		model.addAttribute("answer", "Batch");
+		model.addAttribute("answer", "No information available for batch. For more information please visit our college website https://smshettycollege.edu.in/");
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
@@ -158,7 +170,7 @@ public class ChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("result", true);
-		model.addAttribute("answer", "Exam");
+		model.addAttribute("answer", "No information available for exam. For more information please visit our college website https://smshettycollege.edu.in/");
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
@@ -202,7 +214,11 @@ public class ChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("result", true);
-		model.addAttribute("answer", "Faculty");
+		model.addAttribute("answer", "our college have best faculty. Department of commerce faculty Dr. Sridhara Shetty(Principal and Head of Department, Commerce), Ms. Sahana Raviprasad(Coordinator, Commerce),"
+				+" Dr. Vijay Vishwakarma(Assistant Professor, Commerce), Mr. John Menezes(Assistant Professor, Commerce), Ms. Niveditha Shetty(Assistant Professor, Commerce), Adv.Jyoti Sharma(Assistant Professor, Commerce)."
+				+" Department of Accountancy faculty CS Sandesha Shetty(Head of Department, Accountancy), Mr.Virendra Singh(Assistant Professor, Accountancy), Ms. Komal Tiwari(Assistant Professor, Accountancy)"
+				+ ". For more information please visit our college website https://smshettycollege.edu.in/"
+				);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
@@ -224,7 +240,8 @@ public class ChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("result", true);
-		model.addAttribute("answer", "Address");
+		model.addAttribute("answer", "Hiranandani Gardens, Powai,\r\n"
+				+ "Mumbai- 400076, Maharashtra");
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
@@ -246,7 +263,12 @@ public class ChatBotController {
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("result", true);
-		model.addAttribute("answer", "Contact us");
+		model.addAttribute("answer", "\r\n"
+				+ "Mail Us : hrd@smshettyinstitute.org "
+				+ "\r\n"
+				+ "Contact Us : 02261327305 | 02261327306"
+				+ "\r\n"
+				+ " For more information please visit our college website https://smshettycollege.edu.in/");
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
 		if(user.getAuthorities().contains("STUDENT")) {
