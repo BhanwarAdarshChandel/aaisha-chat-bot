@@ -44,27 +44,6 @@ public class ChatBotController {
 	
 	@Autowired
 	private RegistrationService registrationService;
-	
-	@GetMapping("/chatbot/{timestamp}")
-	public String getChatBot(@PathVariable("timestamp") Integer timestamp,
-			Model model, Principal principal) {
-		String page="";
-		String email = principal.getName();
-		ChatBotUser user = registrationService.findById(email);
-		model.addAttribute("timestamp", timestamp);
-		model.addAttribute("result", true);
-		model.addAttribute("answer", "Hi this is Black Pink. How can I help you? Please choose relevant above option or you can write your question in below input box");
-		model.addAttribute("question", new ChatBotUserQuestion());
-		model.addAttribute("user", user);
-		if(user.getAuthorities().contains("STUDENT")) {
-			LOG.info("STUDENT "+email+" fetching chatbot page");
-			page= "/user/chatbot";
-		}else if(user.getAuthorities().contains("ADMIN")){
-			LOG.info("ADMIN "+email+" fetching chatbot page");
-			page= "/admin/adminchatbot";
-		}
-		return page;
-	}
 
 	@GetMapping("/chatbot/course/{timestamp}")
 	public String getChatBotCourse(@PathVariable("timestamp") Integer timestamp,
@@ -249,6 +228,27 @@ public class ChatBotController {
 			page= "/user/chatbot";
 		}else if(user.getAuthorities().contains("ADMIN")){
 			LOG.info("ADMIN "+email+" fetching chatbot address details");
+			page= "/admin/adminchatbot";
+		}
+		return page;
+	}
+	
+	@GetMapping("/chatbot/{timestamp}")
+	public String getChatBot(@PathVariable("timestamp") Integer timestamp,
+			Model model, Principal principal) {
+		String page="";
+		String email = principal.getName();
+		ChatBotUser user = registrationService.findById(email);
+		model.addAttribute("timestamp", timestamp);
+		model.addAttribute("result", true);
+		model.addAttribute("answer", "Hi this is Black Pink. How can I help you? Please choose relevant above option or you can write your question in below input box");
+		model.addAttribute("question", new ChatBotUserQuestion());
+		model.addAttribute("user", user);
+		if(user.getAuthorities().contains("STUDENT")) {
+			LOG.info("STUDENT "+email+" fetching chatbot page");
+			page= "/user/chatbot";
+		}else if(user.getAuthorities().contains("ADMIN")){
+			LOG.info("ADMIN "+email+" fetching chatbot page");
 			page= "/admin/adminchatbot";
 		}
 		return page;
