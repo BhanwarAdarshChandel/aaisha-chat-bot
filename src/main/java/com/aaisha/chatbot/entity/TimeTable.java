@@ -4,6 +4,7 @@
 package com.aaisha.chatbot.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author Bhanwar
@@ -46,8 +50,9 @@ public class TimeTable implements Serializable {
 	private String semester;
 	
 	@Column(name = "DATE")
-	@NotEmpty(message = "exam date is mandatory")
-	private String date;
+	@NotNull(message = "exam date is mandatory")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date date;
 	
 	@Column(name = "TIME")
 	@NotEmpty(message = "exam time is mandatory")
@@ -109,13 +114,13 @@ public class TimeTable implements Serializable {
 	/**
 	 * @return the date
 	 */
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	/**
@@ -137,7 +142,7 @@ public class TimeTable implements Serializable {
 	 * @param date
 	 * @param time
 	 */
-	public TimeTable(Integer id, String subject, String stream, String semester, String date,
+	public TimeTable(Integer id, String subject, String stream, String semester, Date date,
 			String time) {
 		super();
 		this.id = id;
