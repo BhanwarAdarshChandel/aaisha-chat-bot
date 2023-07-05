@@ -22,6 +22,7 @@ import com.aaisha.chatbot.entity.ChatBotUser;
 import com.aaisha.chatbot.entity.Fee;
 import com.aaisha.chatbot.service.admin.AdminService;
 import com.aaisha.chatbot.service.fee.FeeService;
+import com.aaisha.chatbot.util.ChatBotUtil;
 
 /**
  * @author Bhanwar
@@ -95,6 +96,7 @@ public class AdminFeeController {
 		model.addAttribute("user", user);
 		model.addAttribute("fee", feeServiceImpl.getFeeById(id));
 		model.addAttribute("id", id);
+		model.addAttribute("streams", ChatBotUtil.getStream());
 		return "admin/updatefee";
 	}
 	

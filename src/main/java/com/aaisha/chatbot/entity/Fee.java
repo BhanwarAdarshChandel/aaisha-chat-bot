@@ -41,7 +41,7 @@ public class Fee implements Serializable {
 	
 	@Column(name = "FEE")
 	@Min(value = 1000)
-	private double semFee;
+	private Integer semFee;
 
 	/**
 	 * @return the id
@@ -88,14 +88,14 @@ public class Fee implements Serializable {
 	/**
 	 * @return the fee
 	 */
-	public double getSemFee() {
+	public Integer getSemFee() {
 		return semFee;
 	}
 
 	/**
 	 * @param fee the fee to set
 	 */
-	public void setSemFee(double semFee) {
+	public void setSemFee(Integer semFee) {
 		this.semFee = semFee;
 	}
 

@@ -63,12 +63,30 @@
 				<form th:action="@{/v1/admin/fee/add/{timestamp}(timestamp=${timestamp})}" method="post"
 					th:object="${fee}" action="#">
 					<div class="form-group">
-						<label>Stream Name</label> <input type="text" class="form-control"
-							placeholder="Enter stream Name" th:field="*{stream}">
+						<label>Select Stream</label>
+							<select th:field="*{stream}" class="form-control">
+							<option th:value="''">Please select Stream</option>
+							<option th:value="'B.Com'">B.Com</option>
+							<option th:value="'BMS'">BMS</option>
+							<option th:value="'BMM'">BMM</option>
+							<option th:value="'B.Com Accounting and Finance'">B.Com Accounting and Finance</option>
+							<option th:value="'B.Com Banking and Insurance'">B.Com Banking and Insurance</option>
+							<option th:value="'B.Sc Information Technology'">B.Sc Information Technology</option>
+							<option th:value="'M.Sc Information Technology'">M.Sc Information Technology</option>
+							<option th:value="'M.Com Advanced Accountancy'">M.Com Advanced Accountancy</option>
+						</select>
 					</div>
 					<div class="form-group">
-						<label>Semester Name</label> <input type="text" class="form-control"
-							placeholder="Enter semester" th:field="*{semester}">
+						<label>Select Semester</label>
+						<select th:field="*{semester}" class="form-control">
+							<option th:value="''" th:text="'Please Select Semester'"></option>
+							<option th:value="'1'" th:text="1"></option>
+							<option th:value="'2'" th:text="2"></option>
+							<option th:value="'3'" th:text="3"></option>
+							<option th:value="'4'" th:text="4"></option>
+							<option th:value="'5'" th:text="5"></option>
+							<option th:value="'6'" th:text="6"></option>
+						</select>
 					</div>
 					<div class="form-group">
 						<label>Enter Fee</label> <input type="number" class="form-control"
