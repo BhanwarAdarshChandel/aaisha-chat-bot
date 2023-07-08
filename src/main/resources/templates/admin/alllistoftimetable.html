@@ -83,7 +83,7 @@
 						<td>[[${time.subject}]]</td>
 						<td>[[${time.stream}]]</td>
 						<td>[[${time.semester}]]</td>
-						<td>[[${time.date}]]</td>
+						<td th:text="${#dates.format(time.date, 'dd-MMM-yyyy')}"></td>
 						<td>[[${time.time}]]</td>
 						<td><a class="btn btn-success"
 								th:href="@{/v1/admin/update/timetable/{timestamp}/{id}(timestamp=${timestamp},id=${time.id})}">UPDATE</a>

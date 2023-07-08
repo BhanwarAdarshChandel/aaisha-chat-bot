@@ -32,15 +32,15 @@ public class TimeTableChatBotController {
 	@Autowired
 	private TimeTableService timeTableService;
 	
-	@GetMapping("/bca/{timestamp}")
-	public String getBCATimeTable(@PathVariable("timestamp") Integer timestamp,
+	@GetMapping("/{stream}/{timestamp}")
+	public String getBCATimeTable(@PathVariable String stream,@PathVariable("timestamp") Integer timestamp,
 	Model model, Principal principal) {
 		String page="";
 		String email = principal.getName();
 		ChatBotUser user = registrationService.findById(email);
 		model.addAttribute("user", user);
 		model.addAttribute("question", new ChatBotUserQuestion());
-		model.addAttribute("timetable", timeTableService.getTimeTableByStream("BCA"));
+		model.addAttribute("timetable", timeTableService.getTimeTableByStream(stream.toUpperCase()));
 		if(user.getAuthorities().contains("STUDENT")) {
 			LOG.info("STUDENT "+email+" fetching BCA time table");
 			page= "/user/chatbot";
@@ -50,43 +50,4 @@ public class TimeTableChatBotController {
 		}
 		return page; 
 	}
-	
-	@GetMapping("/mca/{timestamp}")
-	public String getMCATimeTable(@PathVariable("timestamp") Integer timestamp,
-	Model model, Principal principal) {
-		String page="";
-		String email = principal.getName();
-		ChatBotUser user = registrationService.findById(email);
-		model.addAttribute("user", user);
-		model.addAttribute("question", new ChatBotUserQuestion());
-		model.addAttribute("timetable", timeTableService.getTimeTableByStream("MCA"));
-		if(user.getAuthorities().contains("STUDENT")) {
-			LOG.info("STUDENT "+email+" fetching MCA time table");
-			page= "/user/chatbot";
-		}else if(user.getAuthorities().contains("ADMIN")){
-			LOG.info("ADMIN "+email+" fetching MCA time table");
-			page= "/admin/adminchatbot";
-		}
-		return page;
-	}
-	
-	@GetMapping("/msc/{timestamp}")
-	public String getMSCTimeTable(@PathVariable("timestamp") Integer timestamp,
-	Model model, Principal principal) {
-		String page="";
-		String email = principal.getName();
-		ChatBotUser user = registrationService.findById(email);
-		model.addAttribute("user", user);
-		model.addAttribute("question", new ChatBotUserQuestion());
-		model.addAttribute("timetable", timeTableService.getTimeTableByStream("MSc"));
-		if(user.getAuthorities().contains("STUDENT")) {
-			LOG.info("STUDENT "+email+" fetching M.Sc. time table");
-			page= "/user/chatbot";
-		}else if(user.getAuthorities().contains("ADMIN")){
-			LOG.info("ADMIN "+email+" fetching M.Sc. time table");
-			page= "/admin/adminchatbot";
-		}
-		return page; 
-	}
-
 }

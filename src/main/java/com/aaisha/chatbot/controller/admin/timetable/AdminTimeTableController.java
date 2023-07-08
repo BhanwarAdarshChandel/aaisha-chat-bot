@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.aaisha.chatbot.entity.ChatBotUser;
 import com.aaisha.chatbot.entity.TimeTable;
 import com.aaisha.chatbot.service.admin.AdminService;
+import com.aaisha.chatbot.util.ChatBotUtil;
 
 /**
  * @author Bhanwar
@@ -92,6 +93,7 @@ public class AdminTimeTableController {
 		model.addAttribute("timestamp", timestamp);
 		model.addAttribute("user", user);
 		model.addAttribute("id", id);
+		model.addAttribute("streams", ChatBotUtil.getStream());
 		model.addAttribute("timeTable", adminServiceImpl.getTimeTableById(id));
 		return "admin/updatetimetable";
 	}

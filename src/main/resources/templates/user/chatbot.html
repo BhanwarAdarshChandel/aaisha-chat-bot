@@ -59,11 +59,21 @@
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								<a class="dropdown-item"
-									th:href="@{/v1/home/chatbot/fee/bca/{timestamp}(timestamp=${timestamp})}">B.C.A.</a>
+									th:href="@{/v1/home/chatbot/fee/B.Com/{timestamp}(timestamp=${timestamp})}">B.Com</a>
 								<a class="dropdown-item"
-									th:href="@{/v1/home/chatbot/fee/mca/{timestamp}(timestamp=${timestamp})}">M.C.A.</a>
+									th:href="@{/v1/home/chatbot/fee/BMS/{timestamp}(timestamp=${timestamp})}">BMS</a>
 								<a class="dropdown-item"
-									th:href="@{/v1/home/chatbot/fee/msc/{timestamp}(timestamp=${timestamp})}">M.Sc.</a>
+									th:href="@{/v1/home/chatbot/fee/BMM/{timestamp}(timestamp=${timestamp})}">BMM</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/fee/B.Com Accounting and Finance/{timestamp}(timestamp=${timestamp})}">B.Com Accounting and Finance</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/fee/B.Com Banking and Insurance/{timestamp}(timestamp=${timestamp})}">B.Com Banking and Insurance</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/fee/B.Sc Information Technology/{timestamp}(timestamp=${timestamp})}">B.Sc Information Technology</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/fee/M.Sc Information Technology/{timestamp}(timestamp=${timestamp})}">M.Sc Information Technology</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/fee/M.Com Advanced Accountancy/{timestamp}(timestamp=${timestamp})}">M.Com Advanced Accountancy</a>
 							</div>
 						</div>
 					</td>
@@ -84,11 +94,21 @@
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								<a class="dropdown-item"
-									th:href="@{/v1/home/chatbot/timetable/bca/{timestamp}(timestamp=${timestamp})}">B.C.A.</a>
+									th:href="@{/v1/home/chatbot/timetable/B.Com/{timestamp}(timestamp=${timestamp})}">B.Com</a>
 								<a class="dropdown-item"
-									th:href="@{/v1/home/chatbot/timetable/mca/{timestamp}(timestamp=${timestamp})}">M.C.A.</a>
+									th:href="@{/v1/home/chatbot/timetable/BMS/{timestamp}(timestamp=${timestamp})}">BMS</a>
 								<a class="dropdown-item"
-									th:href="@{/v1/home/chatbot/timetable/msc/{timestamp}(timestamp=${timestamp})}">M.Sc.</a>
+									th:href="@{/v1/home/chatbot/timetable/BMM/{timestamp}(timestamp=${timestamp})}">BMM</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/timetable/B.Com Accounting and Finance/{timestamp}(timestamp=${timestamp})}">B.Com Accounting and Finance</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/timetable/B.Com Banking and Insurance/{timestamp}(timestamp=${timestamp})}">B.Com Banking and Insurance</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/timetable/B.Sc Information Technology/{timestamp}(timestamp=${timestamp})}">B.Sc Information Technology</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/timetable/M.Sc Information Technology/{timestamp}(timestamp=${timestamp})}">M.Sc Information Technology</a>
+								<a class="dropdown-item"
+									th:href="@{/v1/home/chatbot/timetable/M.Com Advanced Accountancy/{timestamp}(timestamp=${timestamp})}">M.Com Advanced Accountancy</a>
 							</div>
 						</div>
 					</td>
@@ -122,7 +142,7 @@
 							<td>[[${time.subject}]]</td>
 							<td>[[${time.stream}]]</td>
 							<td>[[${time.semester}]]</td>
-							<td>[[${time.date}]]</td>
+							<td th:text="${#dates.format(time.date, 'dd-MMM-yyyy')}"></td>
 							<td>[[${time.time}]]</td>
 						</tr>
 					</tbody>
@@ -149,7 +169,6 @@
 					</tbody>
 				</table>
 			</div>
-			
 			<div class="card alert alert-success mt-3 mb-3" th:if="${result}" role="alert">
 				<div class="card-body h5 text-dark">[[${answer}]]
 				</div>
